@@ -1,0 +1,17 @@
+<div class="float-end">
+  <small class="fs-6">
+    Your cart:
+    <span *ngIf="sum().itemCount > 0">
+            {{ sum().itemCount }} item(s)
+      {{ sum().cartPrice
+      | currency:"USD":"symbol":"2.2-2" }}
+        </span>
+    <span *ngIf="sum().itemCount == 0">
+            (empty)
+        </span>
+  </small>
+  <button class="btn btn-sm bg-dark text-white"
+          [disabled]="sum().itemCount == 0">
+    <i class="fa fa-shopping-cart"></i>
+  </button>
+</div>
