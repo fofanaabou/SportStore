@@ -5,6 +5,7 @@ import {CommonModule, CurrencyPipe, NgFor, NgForOf, NgIf} from "@angular/common"
 import { CounterDirective } from './counter.directive';
 import { CartModel, CartSummary } from '../model/cart.model';
 import { CartSummaryComponent } from './cart-summary/cart-summary.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-store',
@@ -16,7 +17,7 @@ import { CartSummaryComponent } from './cart-summary/cart-summary.component';
     NgFor,
     CommonModule,
     CounterDirective,
-    CartSummaryComponent, 
+    CartSummaryComponent,
   ],
   templateUrl: './store.component.html',
   styleUrl: './store.component.css'
@@ -32,7 +33,7 @@ export class StoreComponent {
   pageNumbers: Signal<number[]>;
   pageCount: Signal<number>;
   summary: Signal<CartSummary>
-  constructor(public repository: ProductRepository, private cart: CartModel) {
+  constructor(public repository: ProductRepository, private cart: CartModel, private router: Router) {
     this.products = computed(() => {
       if (this.selectedCategory() == undefined) {
         return this.repository.products();
@@ -59,11 +60,11 @@ export class StoreComponent {
     this.pageCount = computed(() => {
       return Math.ceil(this.products().length / this.productsPerPage());
     });
-    
+
     this.summary = cart.summary;
-    
+
   }
-  
+
 
   changeCategory(newCategory?: string) {
     this.selectedCategory.set(newCategory);
@@ -78,8 +79,9 @@ export class StoreComponent {
   changePage(newPage: number) {
     this.selectedPage.set(newPage);
   }
-  
+
   addProductToCart(product: Product) {
-    this.cart.addLine(product) 
+    this.cart.addLine(product)
+    // this.router.navigateByUrl("/cart")
   }
 }
