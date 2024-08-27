@@ -2,7 +2,9 @@ import {computed, Injectable, Signal} from "@angular/core";
 import {Product} from "./Product";
 import {StaticDatasource} from "./Static.datasource";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ProductRepository {
   products: Signal<Product[]>;
   categories: Signal<string[]>;

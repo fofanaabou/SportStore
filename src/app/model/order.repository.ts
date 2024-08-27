@@ -3,7 +3,9 @@ import { StaticDatasource } from "./Static.datasource";
 import { Order } from "./order";
 import { Injectable } from "@angular/core";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class OrderRepository {
   
   constructor(private dataSource: StaticDatasource) {}

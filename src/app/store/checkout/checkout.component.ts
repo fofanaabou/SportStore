@@ -3,18 +3,13 @@ import { OrderRepository } from '../../model/order.repository';
 import { Order } from '../../model/order';
 import {FormsModule, NgForm } from '@angular/forms';
 import {CommonModule, CurrencyPipe, NgFor, NgForOf, NgIf } from '@angular/common';
+import { ModelModule } from '../../model/model.module';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [
-    CurrencyPipe,
-    NgForOf,
-    NgIf,
-    NgFor,
-    CommonModule,
-    FormsModule
-  ],
+  imports: [CurrencyPipe, NgForOf, NgIf, NgFor, CommonModule, FormsModule, ModelModule, RouterModule],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })

@@ -6,6 +6,8 @@ import { CounterDirective } from './counter.directive';
 import { CartModel, CartSummary } from '../model/cart.model';
 import { CartSummaryComponent } from './cart-summary/cart-summary.component';
 import { Router } from '@angular/router';
+import { CartDetailComponent } from './cart-detail/cart-detail.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @Component({
   selector: 'app-store',
@@ -18,6 +20,8 @@ import { Router } from '@angular/router';
     CommonModule,
     CounterDirective,
     CartSummaryComponent,
+    CartDetailComponent,
+    CheckoutComponent
   ],
   templateUrl: './store.component.html',
   styleUrl: './store.component.css'
@@ -81,7 +85,7 @@ export class StoreComponent {
   }
 
   addProductToCart(product: Product) {
-    this.cart.addLine(product)
+    this.cart.addLine(product);
     // this.router.navigateByUrl("/cart")
   }
 }

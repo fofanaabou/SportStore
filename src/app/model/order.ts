@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import {CartLine, CartModel } from "./cart.model";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class Order {
   id?: number;
   name?: string;
@@ -24,6 +26,6 @@ export class Order {
     this.name = this.address = this.city = undefined;
     this.state = this.zip = this.country = undefined;
     this.shipped = false;
-    this.#cart.clear();
+   // this.#cart.clear();
   }
 }

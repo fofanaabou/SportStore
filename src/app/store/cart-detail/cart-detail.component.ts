@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { CartModel } from '../../model/cart.model';
+import { Component, OnInit } from '@angular/core';
+import {CartLine, CartModel } from '../../model/cart.model';
 import {CommonModule, CurrencyPipe, NgFor, NgForOf, NgIf } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cart-detail',
@@ -11,12 +12,20 @@ import {CommonModule, CurrencyPipe, NgFor, NgForOf, NgIf } from '@angular/common
     NgIf,
     NgFor,
     CommonModule,
+    RouterModule,
   ],
   templateUrl: './cart-detail.component.html',
   styleUrl: './cart-detail.component.css'
 })
-export class CartDetailComponent {
+export class CartDetailComponent implements OnInit {
+
+  public lines: CartLine[] = [];
 
   constructor(public cart: CartModel) {
+    this.lines = this.cart.lines();
+  }
+
+  ngOnInit() {
+    
   }
 }

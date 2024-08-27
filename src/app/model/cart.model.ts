@@ -1,16 +1,16 @@
 import {Injectable, Signal, WritableSignal, computed, signal} from "@angular/core";
 import {Product} from "./Product";
+import { BehaviorSubject } from "rxjs";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CartModel {
 
   public linesSignal: WritableSignal<CartLine[]>;
   public summary: Signal<CartSummary>;
-  public lines: Signal<CartLine[]>;
-
   constructor() {
     this.linesSignal = signal([]);
-
     this.summary = computed(() => {
       let newSummary = new CartSummary();
       this.linesSignal().forEach(l => {
@@ -19,12 +19,8 @@ export class CartModel {
       });
       return newSummary;
     });
-
-    this.lines = computed(() => {
-      return this.linesSignal()
-    })
   }
-  
+
   public addLine(product: Product, quantity: number = 1) {
     this.linesSignal.update((array: CartLine[]) => {
       let lines = [...array];
@@ -36,6 +32,9 @@ export class CartModel {
       }
       return lines;
     });
+  }
+  get lines(): Signal<CartLine[]> {
+    return this.linesSignal.asReadonly();
   }
 
   public updateQuantity(product: Product, quantity: number) {
