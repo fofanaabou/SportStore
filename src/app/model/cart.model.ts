@@ -23,11 +23,8 @@ export class CartModel {
     this.lines = computed(() => {
       return this.linesSignal()
     })
-
   }
-
-
-
+  
   public addLine(product: Product, quantity: number = 1) {
     this.linesSignal.update((array: CartLine[]) => {
       let lines = [...array];
