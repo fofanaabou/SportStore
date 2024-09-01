@@ -5,9 +5,12 @@ import {CommonModule, CurrencyPipe, NgFor, NgForOf, NgIf} from "@angular/common"
 import { CounterDirective } from './counter.directive';
 import { CartModel, CartSummary } from '../model/cart.model';
 import { CartSummaryComponent } from './cart-summary/cart-summary.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CartDetailComponent } from './cart-detail/cart-detail.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { AdminModule } from '../admin/admin.module';
+import { AdminComponent } from '../admin/admin.component';
+import { AuthComponent } from '../admin/auth/auth.component';
 
 @Component({
   selector: 'app-store',
@@ -21,7 +24,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     CounterDirective,
     CartSummaryComponent,
     CartDetailComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    RouterModule
   ],
   templateUrl: './store.component.html',
   styleUrl: './store.component.css'
@@ -38,10 +42,12 @@ export class StoreComponent {
   pageCount: Signal<number>;
   summary: Signal<CartSummary>
   constructor(public repository: ProductRepository, private cart: CartModel, private router: Router) {
+    // @ts-ignore
     this.products = computed(() => {
       if (this.selectedCategory() == undefined) {
         return this.repository.products();
       } else {
+        // @ts-ignore
         return this.repository.products()
           .filter(p => p.category === this.selectedCategory())
       }

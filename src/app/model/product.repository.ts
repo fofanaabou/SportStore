@@ -1,6 +1,8 @@
 import {computed, Injectable, Signal} from "@angular/core";
 import {Product} from "./Product";
 import {StaticDatasource} from "./Static.datasource";
+import { RestDatasourceService } from "./rest.datasource.service";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 @Injectable({
   providedIn: 'root',
@@ -9,17 +11,26 @@ export class ProductRepository {
   products: Signal<Product[]>;
   categories: Signal<string[]>;
 
-  constructor(private dataSource: StaticDatasource) {
-    this.products = dataSource.products;
+  constructor(private dataSource: RestDatasourceService) {
+    // @ts-ignore
+    this.products = toSignal(dataSource.products, {
+      initialValue: []
+    });
+
     this.categories = computed(() => {
-      return this.dataSource.products()
+      // @ts-ignore
+      return this.products()
         .map(p => p.category ?? "(None)")
-        .filter((c, index, array) => array.indexOf(c) == index)
-        .sort();
+        .filter((c, index, array) =>
+          array.indexOf(c) == index).sort();
     })
+
+
   }
 
   getProduct(id: number): Product | undefined {
-    return this.dataSource.products().find(p => p.id == id);
+    // @ts-ignore
+    return this.products().find(p => p.id == id);
   }
 }
+

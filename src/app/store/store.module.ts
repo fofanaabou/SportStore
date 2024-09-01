@@ -7,12 +7,29 @@ import {CommonModule} from '@angular/common';
 import {CartDetailComponent} from './cart-detail/cart-detail.component';
 import {CheckoutComponent} from './checkout/checkout.component';
 import {FormsModule, NgModel} from '@angular/forms';
+import { AdminModule } from '../admin/admin.module';
 
 
 @NgModule({
   declarations: [],
-  imports: [ModelModule, StoreComponent, CounterDirective, CartSummaryComponent, CartDetailComponent, CheckoutComponent, CommonModule, FormsModule],
-  exports: [StoreComponent, CartSummaryComponent, CartDetailComponent, CheckoutComponent],
+  imports: [
+    ModelModule,
+    StoreComponent,
+    AdminModule,
+    CounterDirective,
+    CartSummaryComponent,
+    CartDetailComponent,
+    CheckoutComponent,
+    CommonModule,
+    FormsModule
+  ],
+  exports: [
+    StoreComponent,
+    CartSummaryComponent,
+    CartDetailComponent,
+    CheckoutComponent,
+    AdminModule
+  ],
 })
 export class StoreModule {
 }
