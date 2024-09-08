@@ -7,7 +7,7 @@ import { AdminModule } from './admin/admin.module';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, StoreModule,AdminModule, RouterModule],
+  imports: [CommonModule, StoreModule, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

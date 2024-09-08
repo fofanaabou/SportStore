@@ -8,7 +8,7 @@ import {AuthService} from '../../model/auth.service';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [CurrencyPipe, NgForOf, NgIf, NgFor, CommonModule, FormsModule, ModelModule, RouterModule],
+  imports: [CurrencyPipe, NgForOf, NgIf, NgFor, CommonModule, FormsModule, RouterModule],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })

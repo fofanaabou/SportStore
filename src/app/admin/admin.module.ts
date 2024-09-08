@@ -9,6 +9,7 @@ import {MaterialFeatures} from './material.features';
 import {ProductEditorComponent} from './product.editor/product.editor.component';
 import {ProductTableComponent} from './product.table/product.table.component';
 import {OrderTableComponent} from './order.table/order.table.component';
+import { ModelModule } from '../model/model.module';
 
 let routing = RouterModule.forChild([
   {path: "auth", component: AuthComponent},
@@ -33,7 +34,7 @@ let routing = RouterModule.forChild([
     routing,
     AdminComponent,
     AuthComponent,
-    MaterialFeatures
+    MaterialFeatures,
   ],
   providers: [AuthGuard],
   exports: [AdminComponent, AuthComponent, MaterialFeatures]

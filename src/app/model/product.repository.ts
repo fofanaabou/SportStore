@@ -21,9 +21,7 @@ export class ProductRepository {
         .map(p => p.category ?? "(None)")
         .filter((c, index, array) =>
           array.indexOf(c) == index).sort();
-    })
-
-
+    });
   }
 
   getProduct(id: number): Product | undefined {
@@ -32,6 +30,7 @@ export class ProductRepository {
   }
 
   saveProduct(product: Product) {
+    console.log("hey:", this.dataSource.auth_token)
     if (product.id == null || product.id === 1) {
       this.dataSource.saveProduct(product)
         .subscribe(p => {

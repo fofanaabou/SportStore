@@ -28,7 +28,8 @@ import { AdminModule } from '../admin/admin.module';
     CartSummaryComponent,
     CartDetailComponent,
     CheckoutComponent,
-    AdminModule
+    AdminModule,
+    ModelModule
   ],
 })
 export class StoreModule {

@@ -24,7 +24,7 @@ export class RestDatasourceService {
   }
 
   saveOrder(order: Order): Observable<Order> {
-    return this.httpClient.post<Order>(this.baseUrl + "order", order);
+    return this.httpClient.post<Order>(this.baseUrl + "orders", order);
   }
 
   authenticate(user: string, pass: string): Observable<boolean> {
@@ -37,14 +37,11 @@ export class RestDatasourceService {
   }
 
   saveProduct(product: Product): Observable<Product> {
-    return this.httpClient.post<Product>(this.baseUrl + "products",
-      product, this.getOptions());
+    return this.httpClient.post<Product>(this.baseUrl + "products", product, this.getOptions());
   }
 
   updateProduct(product: Product): Observable<Product> {
-    return this.httpClient.put<Product>(
-      `${this.baseUrl}products/${product.id}`,
-      product, this.getOptions());
+    return this.httpClient.put<Product>(`${this.baseUrl}products/${product.id}`, product, this.getOptions());
   }
 
   deleteProduct(id: number): Observable<Product> {
