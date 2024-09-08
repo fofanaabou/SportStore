@@ -4,11 +4,24 @@ import {AuthComponent} from './auth/auth.component';
 import {FormsModule} from '@angular/forms';
 import {AdminComponent} from './admin.component';
 import {RouterModule} from '@angular/router';
+import {AuthGuard} from './auth.guard';
+import {MaterialFeatures} from './material.features';
+import {ProductEditorComponent} from './product.editor/product.editor.component';
+import {ProductTableComponent} from './product.table/product.table.component';
+import {OrderTableComponent} from './order.table/order.table.component';
 
 let routing = RouterModule.forChild([
-  { path: "auth", component: AuthComponent},
-  { path: "main", component: AdminComponent},
-  { path: "**", redirectTo: "auth"}
+  {path: "auth", component: AuthComponent},
+  {
+    path: "main", component: AdminComponent, canActivate: [AuthGuard],
+    children: [
+      {path: "products/:mode/:id", component: ProductEditorComponent},
+      {path: "products/:mode", component: ProductEditorComponent},
+      {path: "products", component: ProductTableComponent},
+      {path: "orders", component: OrderTableComponent}
+    ]
+  },
+  {path: "**", redirectTo: "auth"}
 ]);
 
 @NgModule({
@@ -19,9 +32,11 @@ let routing = RouterModule.forChild([
     RouterModule,
     routing,
     AdminComponent,
-    AuthComponent
+    AuthComponent,
+    MaterialFeatures
   ],
-  exports: [AdminComponent, AuthComponent]
+  providers: [AuthGuard],
+  exports: [AdminComponent, AuthComponent, MaterialFeatures]
 })
 export class AdminModule {
 }

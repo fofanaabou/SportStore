@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
-const APP_SECRET = "myappsecret"
-const USERNAME = "admin"
-const PASSWORD = "secret"
+const APP_SECRET = "myappsecret";
+const USERNAME = "admin";
+const PASSWORD = "secret";
 
 const mappings = {
   get: ["/api/orders", "/orders"],
@@ -15,16 +15,16 @@ function requiresAuth(method, url) {
 }
 
 module.exports = function (req, res, next) {
-  if (req.url.endsWith("/login") && req.method === "POST") {
-    if (req.body && req.body.name === USERNAME && req.body.password === PASSWORD) {
-      let token = jwt.sign({
-        data: USERNAME, expiresIn: "1h"
-      }, APP_SECRET);
-      res.json({success: true, token: token});
+  if (req.url.endsWith("/login") && req.method == "POST") {
+    if (req.body && req.body.name == USERNAME
+      && req.body.password == PASSWORD) {
+      let token = jwt.sign({ data: USERNAME, expiresIn: "1h" },
+        APP_SECRET);
+      res.json({ success: true, token: token });
     } else {
-      res.json({success: false});
+      res.json({ success: false });
     }
-    res.end;
+    res.end();
     return;
   } else if (requiresAuth(req.method, req.url)) {
     let token = req.headers["authorization"] || "";
@@ -34,11 +34,11 @@ module.exports = function (req, res, next) {
         jwt.verify(token, APP_SECRET);
         next();
         return;
-      } catch (err) {
-      }
+      } catch (err) { }
     }
     res.statusCode = 401;
     res.end();
+    return;
   }
   next();
 }

@@ -3,11 +3,12 @@ import {Component} from '@angular/core';
 import {FormsModule, NgForm} from '@angular/forms';
 import {Router, RouterModule} from '@angular/router';
 import {ModelModule} from '../../model/model.module';
+import {AuthService} from '../../model/auth.service';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [RouterModule, CurrencyPipe, NgForOf, NgIf, NgFor, CommonModule, FormsModule, ModelModule, RouterModule],
+  imports: [CurrencyPipe, NgForOf, NgIf, NgFor, CommonModule, FormsModule, ModelModule, RouterModule],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
@@ -16,12 +17,18 @@ export class AuthComponent {
   password?: string;
   errorMessage?: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private auth: AuthService) {
   }
 
   authenticate(form: NgForm) {
     if (form.valid) {
-      this.router.navigateByUrl("/admin/main");
+      this.auth.authenticate(this.username ?? "", this.password ?? "")
+        .subscribe(response => {
+          if (response) {
+            this.router.navigateByUrl("/admin/main");
+          }
+          this.errorMessage = "Authentication failed";
+        })
     } else {
       this.errorMessage = "Form data Invalid"
     }
